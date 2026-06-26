@@ -258,9 +258,22 @@
               <i class="fa fa-angle-right font-lg"></i
             ></b-link>
           </b-col>
-          <b-col v-if="project.externalReferences" md="auto">
+          <b-col md="auto">
             <b-row class="d-none d-md-flex float-right">
+              <b-button
+                id="export-report-button"
+                size="sm"
+                variant="outline-primary"
+                v-b-modal.exportReportModal
+              >
+                <span class="fa fa-download"></span>
+                {{ $t('message.export_report') }}
+              </b-button>
+              <b-tooltip target="export-report-button" triggers="hover focus">
+                {{ $t('message.export_report_tooltip') }}
+              </b-tooltip>
               <ExternalReferencesDropdown
+                v-if="project.externalReferences"
                 :externalReferences="project.externalReferences"
               />
             </b-row>
@@ -427,6 +440,7 @@
     <project-properties-modal :uuid="this.uuid" />
     <project-create-property-modal :uuid="this.uuid" />
     <project-add-version-modal :uuid="this.uuid" />
+    <export-report-modal :uuid="this.uuid" />
   </div>
 </template>
 
@@ -448,6 +462,7 @@ import ProjectDetailsModal from './ProjectDetailsModal';
 import ProjectPropertiesModal from './ProjectPropertiesModal';
 import ProjectCreatePropertyModal from './ProjectCreatePropertyModal';
 import ProjectAddVersionModal from './ProjectAddVersionModal';
+import ExportReportModal from './ExportReportModal';
 import ProjectFindings from './ProjectFindings';
 import ProjectPolicyViolations from './ProjectPolicyViolations';
 import ProjectEpss from './ProjectEpss';
@@ -459,6 +474,7 @@ export default {
     ProjectPolicyViolations,
     ProjectFindings,
     ProjectAddVersionModal,
+    ExportReportModal,
     ProjectCreatePropertyModal,
     ProjectPropertiesModal,
     ProjectDetailsModal,
